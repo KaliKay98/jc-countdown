@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jayla &amp; Chad Countdown</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  html,body{margin:0;background:transparent;}
+  .cd{display:flex;justify-content:center;align-items:flex-start;gap:clamp(14px,5vw,56px);
+      font-family:'Cormorant Garamond',Georgia,serif;padding:12px 8px;}
+  .u{text-align:center;min-width:clamp(52px,14vw,110px)}
+  .n{color:#B08D57;font-weight:500;font-size:clamp(40px,11vw,84px);line-height:1;font-variant-numeric:lining-nums}
+  .l{color:#F7F4EE;font-weight:600;font-size:clamp(9px,2.4vw,13px);letter-spacing:.32em;text-transform:uppercase;margin-top:8px;padding-left:.32em}
+  .done{color:#F7F4EE;font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(24px,6vw,44px);text-align:center;padding:16px}
+</style>
+</head>
+<body>
+<div class="cd" id="cd">
+  <div class="u"><div class="n" id="d">000</div><div class="l">Days</div></div>
+  <div class="u"><div class="n" id="h">00</div><div class="l">Hours</div></div>
+  <div class="u"><div class="n" id="m">00</div><div class="l">Minutes</div></div>
+  <div class="u"><div class="n" id="s">00</div><div class="l">Seconds</div></div>
+</div>
+<script>
+  // July 2, 2027, 6:30 PM Central Daylight Time (UTC-5)
+  var target = Date.parse('2027-07-02T18:30:00-05:00');
+  function pad(x){return (x<10?'0':'')+x;}
+  function tick(){
+    var diff = target - Date.now();
+    if (diff <= 0){
+      document.getElementById('cd').outerHTML = '<div class="done">Today we say I do</div>';
+      return;
+    }
+    var s = Math.floor(diff/1000);
+    document.getElementById('d').textContent = Math.floor(s/86400);
+    document.getElementById('h').textContent = pad(Math.floor(s%86400/3600));
+    document.getElementById('m').textContent = pad(Math.floor(s%3600/60));
+    document.getElementById('s').textContent = pad(s%60);
+    setTimeout(tick, 1000);
+  }
+  tick();
+</script>
+</body>
+</html>
